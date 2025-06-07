@@ -3,6 +3,7 @@ package com.sharad.service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -57,11 +58,7 @@ public class IDoctorServiceImpl implements IDoctorService {
 	@Override
 	public Optional<Doctor> getSingleDoctor(Integer id) {
 		Optional<Doctor> option = doctorRepo.findById(id);
-		if(option.isPresent()) {
-			return option;
-			}else {
-				return Optional.empty();
-			}
+		return option;
 	}
 
 	@Override
@@ -69,5 +66,51 @@ public class IDoctorServiceImpl implements IDoctorService {
 		Iterable<Doctor> allDoctor = doctorRepo.findAllById(id);
 		return allDoctor;
 	}
+
+	@Override
+	public String deleteDoctorById(Integer id) {
+		Optional<Doctor> opt = doctorRepo.findById(id);
+		if(opt.isPresent()) {
+			doctorRepo.deleteById(id);
+			return  id +" : doctor is deleted";
+		}else {
+			return id +" : doctor not found";
+		}
+	}
+
+	@Override
+	public String deleteDoctor(Doctor doctor) {
+		Optional<Doctor> opt = doctorRepo.findById(doctor.getDocId());
+		if(opt.isEmpty()) {
+			return doctor.getDocId()+" doctor not found";
+		}else {
+			doctorRepo.delete(opt.get());
+			return doctor.getDocId() +" doctor found and deleted";
+		}
+		
+	}
+
+	@Override
+	public String removeAllDoctor() {
+		long count = doctorRepo.count();
+		if(count>0) {
+			doctorRepo.deleteAll();
+			return count +" no of record are deleted";
+		}else {
+			return "no record Found";
+		}
+	}
+
+	@Override
+	public String removeDoctorByIds(Iterable<Integer> ids) {
+	Iterable<Doctor> allRecord = doctorRepo.findAllById(ids);
+	  long count = StreamSupport.stream(allRecord.spliterator(), false).count();
+	 doctorRepo.deleteAllById(ids);
+	 
+	 return count +" no of record deleted"; 	
+	 
+	}
+
+	
 
 }

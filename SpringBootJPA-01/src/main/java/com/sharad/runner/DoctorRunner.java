@@ -1,5 +1,6 @@
 package com.sharad.runner;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,16 +21,17 @@ public class DoctorRunner implements CommandLineRunner {
 		/*
 		 try {
 		Doctor doctor= new Doctor();
-		doctor.setDocName("Veera");
-		doctor.setIncome(500000);
-		doctor.setSpecialization("MD-Gyno");
+		
+		doctor.setDocName("Sneha");
+		doctor.setIncome(770000.0);
+		doctor.setSpecialization("Pediatrician");
 		
 		doctorService.registerDoctor(doctor);
 		}catch(Exception e){
 			e.printStackTrace();
 		}
-		*/
 		
+		*/
 		
 		
 		/*
@@ -94,19 +96,57 @@ public class DoctorRunner implements CommandLineRunner {
 			e.printStackTrace();
 		}*/
 		
-		/*	
+		/*
 			try {
-				Optional<Doctor> singleDoctor = doctorService.getSingleDoctor(5);
-				System.out.println(singleDoctor);
+				Optional<Doctor> singleDoctor = doctorService.getSingleDoctor(2);
+				if(singleDoctor.isPresent()) {
+					System.out.println("Doctor Record Found : "+ singleDoctor.get());
+					}else {
+							System.out.println("Doctor Record Not Found");
+					}
 			}catch(Exception e) {
 				e.printStackTrace();
 			}
 			*/
 		
-		Iterable<Doctor> doctorList = doctorService.showAllDoctorById(List.of(2,1,5,7,50));
-		doctorList.forEach(doctor->{
-			System.out.println(doctor);
-		});
+		/*	
+			Iterable<Doctor> doctorList = doctorService.showAllDoctorById(List.of(2,1,5,7,50));
+			doctorList.forEach(doctor->{
+				System.out.println(doctor);
+			});
+			*/
+		
+		/*try {
+			String deletedDoctor = doctorService.deleteDoctorById(2);	
+			System.out.println(deletedDoctor);
+		}catch(Exception e){
+			e.printStackTrace();
+		}*/
+		
+		/*
+		try {
+			Doctor doctor= new Doctor();
+			doctor.setDocId(204);
+			System.out.println(doctorService.deleteDoctor(doctor));
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		*/
+		
+		/*	
+			try {
+			String removeAllDoctor = doctorService.removeAllDoctor();
+			System.out.println(removeAllDoctor);
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+			*/
+		
+		try {
+			System.out.println(doctorService.removeDoctorByIds(Arrays.asList(2,4,1)));
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 }

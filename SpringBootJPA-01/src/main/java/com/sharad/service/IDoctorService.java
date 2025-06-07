@@ -15,6 +15,14 @@ public interface IDoctorService {
 	public long fetchDoctorCount();
 	
 	public Iterable<Doctor> findAllDoctor();
-	 Optional<Doctor> getSingleDoctor(Integer id);
 	public Iterable<Doctor> showAllDoctorById(Iterable<Integer> id);
+	Optional<Doctor> getSingleDoctor(Integer id);
+	//update the doctor details - full update -- use Save() method
+	//String registerOrUpdateDoctor(Doctor doctor);
+	
+	public String deleteDoctorById(Integer id);
+	public String deleteDoctor(Doctor doctor);
+	public String removeAllDoctor();
+	public String removeDoctorByIds(Iterable<Integer> ids);
+	
 }
