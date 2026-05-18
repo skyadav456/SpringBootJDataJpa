@@ -1,0 +1,35 @@
+filter() -> used to select matching record
+map()-> convert/transform output
+collect() -> convert stream into List/Set/map
+count() -> Total count
+sorted() - used for sorting - default as well as custom
+
+
+groupingBy() -- collector used to group element of stream based on
+                key
+                ex. Group employees by department → IT employees together, HR together, Finance together.
+                syntax- Collectors.groupingBy(classifierFunction)
+                Example : emp.stream().collec(Collectors.groupingBy(Employee::getDept));
+Why groupingBy is important in real time::
+in real time application
+    Department-wise employee report
+    City-wise customer report
+    Category-wise products
+
+Version 1: groupingBy(classifier) -- gives Map<key,List<Value>>
+            Map<String, List<Employee>> map = employees.stream()
+                    .collect(Collectors.groupingBy(Employee::getCity));
+
+Version 2: groupingBy(classifier, downstreamCollector)  -- gives Map<key, somethingElse>
+            Map<String, Long> deptCount = employees.stream()
+                    .collect(Collectors.groupingBy(Employee::getDept, Collectors.counting()));
+            // output -{IT=3, HR=2, Finance=2, Sales=1}
+Version 3: groupingBy(classifier, mapFactory, downstream)  --Used when you want sorted map like TreeMap
+
+Map<String, List<Employee>> sortedDeptMap = employees.stream()
+        .collect(Collectors.groupingBy(
+                Employee::getDept,
+                TreeMap::new,
+                Collectors.toList()
+        ));
+
